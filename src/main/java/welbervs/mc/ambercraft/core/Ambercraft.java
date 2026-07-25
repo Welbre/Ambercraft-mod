@@ -14,7 +14,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import welbervs.mc.ambercraft.core.registry.BlocksRegister;
+import welbervs.mc.ambercraft.core.registry.DataComponentRegister;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Ambercraft.MODID)
@@ -42,6 +42,7 @@ public class Ambercraft
         welbervs.mc.ambercraft.core.registry.ItemsRegister.REGISTER.register(modEventBus);
         welbervs.mc.ambercraft.core.registry.CreativeTabRegister.REGISTER.register(modEventBus);
         welbervs.mc.ambercraft.core.registry.BlockEntityRegister.REGISTER.register(modEventBus);
+        DataComponentRegister.REGISTER.register(modEventBus);
 
 
         // Config files
