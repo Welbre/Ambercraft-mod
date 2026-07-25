@@ -1,0 +1,11 @@
+{
+  "itemGroup.ambercraft.main": "Ambercraft",
+
+  "ambercraft.configuration.title": "Ambercraft Configs",
+  "ambercraft.configuration.section.ambercraft.common.toml": "Ambercraft Configs",
+  "ambercraft.configuration.section.ambercraft.common.toml.title": "Ambercraft Configs",
+  "ambercraft.configuration.items": "Item List",
+  "ambercraft.configuration.logDirtBlock": "Log Dirt Block",
+  "ambercraft.configuration.magicNumberIntroduction": "Magic Number Text",
+  "ambercraft.configuration.magicNumber": "Magic Number"
+}
