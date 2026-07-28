@@ -15,6 +15,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import welbervs.mc.ambercraft.api.registry.AmbercraftRegistries;
 import welbervs.mc.ambercraft.core.registry.DataComponentRegister;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
@@ -34,6 +35,7 @@ public class Ambercraft
     {
         //Mod bus
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(AmbercraftRegistries::onNewRegistry);
 
         //NeoForge bus
         NeoForge.EVENT_BUS.register(this);

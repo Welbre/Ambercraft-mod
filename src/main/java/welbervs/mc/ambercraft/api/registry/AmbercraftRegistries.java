@@ -3,6 +3,8 @@ package welbervs.mc.ambercraft.api.registry;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.registries.NewRegistryEvent;
+import net.neoforged.neoforge.registries.RegistryBuilder;
 import welbervs.mc.ambercraft.api.ipart.IPartType;
 import welbervs.mc.ambercraft.core.Ambercraft;
 
@@ -15,4 +17,9 @@ public class AmbercraftRegistries
             ResourceKey.createRegistryKey(
                     ResourceLocation.fromNamespaceAndPath(Ambercraft.MODID, "ipart_type")
             );
+
+
+    public static void onNewRegistry(NewRegistryEvent event) {
+        event.create(new RegistryBuilder<>(AmbercraftRegistries.IPART_TYPE).sync(true));
+    }
 }

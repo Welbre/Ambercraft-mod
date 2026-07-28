@@ -13,7 +13,7 @@ public record DeferredIPartRegister(DeferredRegister<IPartType<?>> register)
 {
     public DeferredIPartRegister(String register)
     {
-        this.register = DeferredRegister.create(AmbercraftRegistries.IPART_TYPE, register);
+        this(DeferredRegister.create(AmbercraftRegistries.IPART_TYPE, register));
     }
 
     /**

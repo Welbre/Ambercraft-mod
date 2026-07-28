@@ -6,12 +6,23 @@ import java.util.function.Supplier;
 
 public class IPartType<T extends IPart>
 {
-    ResourceLocation id;
-    Supplier<T> factory;
+    public final ResourceLocation id;
+    private final Supplier<T> defaultInstance;
 
-    public IPartType(ResourceLocation id, Supplier<T> factory)
+    /**
+     * Creates a new IPartType
+     *
+     * @param id              The resourceLocation where the IPartType will be registered
+     * @param defaultInstance A supplier that returns the default IPart.
+     */
+    public IPartType(ResourceLocation id, Supplier<T> defaultInstance)
     {
         this.id = id;
-        this.factory = factory;
+        this.defaultInstance = defaultInstance;
+    }
+
+    public T getDefaultInstance()
+    {
+        return defaultInstance.get();
     }
 }

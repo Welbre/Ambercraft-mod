@@ -1,4 +1,4 @@
-package welbervs.mc.ambercraft.iparts;
+package welbervs.mc.ambercraft.content.iparts;
 
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
