@@ -1,4 +1,4 @@
-package welbervs.mc.ambercraft.ipart;
+package welbervs.mc.ambercraft.core.ipart;
 
 import net.minecraft.world.level.block.Block;
 

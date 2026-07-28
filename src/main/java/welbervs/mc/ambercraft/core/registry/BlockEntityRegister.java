@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import welbervs.mc.ambercraft.core.Ambercraft;
-import welbervs.mc.ambercraft.ipart.IPartContainerBlockEntity;
+import welbervs.mc.ambercraft.core.ipart.IPartContainerBlockEntity;
 
 import java.util.Arrays;
 import java.util.function.Supplier;

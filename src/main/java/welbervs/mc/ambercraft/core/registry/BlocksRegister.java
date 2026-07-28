@@ -3,7 +3,7 @@ package welbervs.mc.ambercraft.core.registry;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import welbervs.mc.ambercraft.ipart.IPartContainerBlock;
+import welbervs.mc.ambercraft.core.ipart.IPartContainerBlock;
 
 import static welbervs.mc.ambercraft.core.Ambercraft.MODID;
 
