@@ -13,7 +13,7 @@ import welbervs.mc.ambercraft.core.Ambercraft;
  */
 public class AmbercraftRegistries
 {
-    public static final ResourceKey<Registry<PartType<?>>> PART_TYPE =
+    public static final ResourceKey<Registry<PartType>> PART_TYPE =
             ResourceKey.createRegistryKey(
                     ResourceLocation.fromNamespaceAndPath(Ambercraft.MODID, "ipart_type")
             );

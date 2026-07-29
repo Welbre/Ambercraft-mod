@@ -10,11 +10,11 @@ import net.minecraft.resources.RegistryFixedCodec;
 import org.jetbrains.annotations.NotNull;
 import welbervs.mc.ambercraft.api.registry.AmbercraftRegistries;
 
-public record PartDataComponent(Holder<PartType<?>> partType)
+public record PartDataComponent(Holder<PartType> partType)
 {
-    public @NotNull PartInstance getDefaultPartInstance()
+    public @NotNull Part getDefaultPartInstance()
     {
-        return partType.value().part().getDefaultInstance();
+        return partType.value().getDefaultInstance();
     }
 
     public static final Codec<PartDataComponent> DISK_CODEC = RecordCodecBuilder.create(instance ->

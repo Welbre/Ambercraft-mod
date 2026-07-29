@@ -2,18 +2,18 @@ package welbervs.mc.ambercraft.content.part_type;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import welbervs.mc.ambercraft.api.part.PartInstance;
 import welbervs.mc.ambercraft.api.part.Part;
+import welbervs.mc.ambercraft.api.part.PartType;
 
-public class TestPart extends Part
+public class TestPartType extends PartType
 {
-    public TestPart(ResourceLocation id)
+    public TestPartType(ResourceLocation id)
     {
         super(id);
     }
 
     @Override
-    public VoxelShape getShape(PartInstance partInstance)
+    public VoxelShape getShape(Part part)
     {
         return null;
     }

@@ -4,12 +4,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import welbervs.mc.ambercraft.api.part.Part;
 import welbervs.mc.ambercraft.api.part.PartType;
 
 import java.util.function.Function;
 
-public record DeferredPartTypeRegister(DeferredRegister<PartType<?>> register)
+public record DeferredPartTypeRegister(DeferredRegister<PartType> register)
 {
     public DeferredPartTypeRegister(String register)
     {
@@ -19,15 +18,15 @@ public record DeferredPartTypeRegister(DeferredRegister<PartType<?>> register)
     /**
      * Register a new IPartType using your mod id.
      *
-     * @param name     the name of the IPartType
-     * @param partType The PartType to register
-     * @param <T>      The class that will be registered
+     * @param name the name of the IPartType
+     * @param partType A function that receives the ResourceLocation of the PartType and returns the PartType
+     * @param <T>  The class that will be registered
      * @return The DeferredHolder of the IPartType
      */
-    public <T extends Part> DeferredHolder<PartType<?>, PartType<T>> register(String name, Function<ResourceLocation,T> partType)
+    public <T extends PartType> DeferredHolder<PartType, T> register(String name, Function<ResourceLocation, T> partType)
     {
         var key = ResourceLocation.fromNamespaceAndPath(register.getNamespace(), name);
-        return register.register(name, () -> new PartType<>(key, partType.apply(key)));
+        return register.register(name, () -> partType.apply(key));
     }
 
     public void register(IEventBus modEventBus)

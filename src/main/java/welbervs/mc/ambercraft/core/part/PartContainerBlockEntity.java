@@ -1,18 +1,20 @@
 package welbervs.mc.ambercraft.core.part;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-import welbervs.mc.ambercraft.api.part.PartInstance;
+import welbervs.mc.ambercraft.api.part.Part;
 import welbervs.mc.ambercraft.core.registry.BlockEntityRegister;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class PartContainerBlockEntity extends BlockEntity implements Iterable<PartInstance>
+public class PartContainerBlockEntity extends BlockEntity implements Iterable<Part>
 {
-    private final ArrayList<PartInstance> partInstances = new ArrayList<>();
+    private final ArrayList<Part> parts = new ArrayList<>();
 
     public PartContainerBlockEntity(BlockPos pos, BlockState blockState)
     {
@@ -22,18 +24,35 @@ public class PartContainerBlockEntity extends BlockEntity implements Iterable<Pa
     /**
      * Try to add an IPart to the container.
      *
-     * @param partInstance The IPart to add
+     * @param part The IPart to add
      * @return true if successful.
      */
-    public boolean addPart(PartInstance partInstance)
+    public boolean addPart(Part part)
     {
-        partInstances.add(partInstance);
+        parts.add(part);
         return true;
     }
 
     @Override
-    public @NotNull Iterator<PartInstance> iterator()
+    public @NotNull Iterator<Part> iterator()
     {
-        return partInstances.iterator();
+        return parts.iterator();
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------Data handler------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    @Override
+    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider registries)
+    {
+        super.saveAdditional(tag, registries);
+        CompoundTag pInstances = new CompoundTag();
+        for (Part instance : parts)
+        {
+
+        }
+        tag.put("partInstance", pInstances);
     }
 }
