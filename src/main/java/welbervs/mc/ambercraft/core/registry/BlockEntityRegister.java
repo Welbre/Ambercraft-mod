@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import welbervs.mc.ambercraft.core.Ambercraft;
-import welbervs.mc.ambercraft.core.ipart.IPartContainerBlockEntity;
+import welbervs.mc.ambercraft.core.part.PartContainerBlockEntity;
 
 import java.util.Arrays;
 import java.util.function.Supplier;
@@ -17,8 +17,8 @@ public class BlockEntityRegister
 {
     public static final DeferredRegister<BlockEntityType<?>> REGISTER = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, Ambercraft.MODID);
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<IPartContainerBlockEntity>> IPART_CONTAINER_BLOCK_ENTITY
-            = register("ipart_container", IPartContainerBlockEntity::new, BlocksRegister.IPART_CONTAINER_BLOCK);
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PartContainerBlockEntity>> PART_CONTAINER_BLOCK_ENTITY
+            = register("part_container", PartContainerBlockEntity::new, BlocksRegister.PART_CONTAINER_BLOCK);
 
 
 
