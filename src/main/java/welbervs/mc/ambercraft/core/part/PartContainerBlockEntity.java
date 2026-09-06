@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import welbervs.mc.ambercraft.api.part.Part;
+import welbervs.mc.ambercraft.core.Ambercraft;
 import welbervs.mc.ambercraft.core.registry.BlockEntityRegister;
 
 import java.util.ArrayList;
@@ -49,9 +50,17 @@ public class PartContainerBlockEntity extends BlockEntity implements Iterable<Pa
     {
         super.saveAdditional(tag, registries);
         CompoundTag pInstances = new CompoundTag();
-        for (Part instance : parts)
+        for (int i = 0; i < parts.size(); i++)
         {
-
+            Part instance = parts.get(i);
+            CompoundTag _tag = new CompoundTag();
+            try {
+                instance.saveAdditional(_tag);
+            } catch (RuntimeException e)
+            {
+                Ambercraft.LOGGER.error("Serialization fail", e);
+            }
+            pInstances.put(String.valueOf(i), _tag);
         }
         tag.put("partInstance", pInstances);
     }
