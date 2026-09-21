@@ -1,19 +1,19 @@
 package welbervs.mc.ambercraft.api.part;
 
-import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.resources.RegistryFixedCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.common.util.INBTSerializable;
+import org.jetbrains.annotations.NotNull;
 import welbervs.mc.ambercraft.api.component.Component;
 import welbervs.mc.ambercraft.api.component.ComponentType;
 import welbervs.mc.ambercraft.api.registry.AmbercraftRegistries;
 
 import java.util.List;
 
-public final class Part
+public final class Part implements INBTSerializable<CompoundTag>
 {
     private Component[] component;
     private PartType partType;
@@ -42,13 +42,24 @@ public final class Part
         return partType;
     }
 
-
-    public void saveAdditional(CompoundTag tag)
+    @Override
+    public CompoundTag serializeNBT(HolderLookup.@NotNull Provider provider)
     {
+        CompoundTag tag = new CompoundTag();
         tag.putString("type", partType.id.toString());
+        {
+            CompoundTag components = new CompoundTag();
+            for (int i = 0; i < component.length; i++)
+            {
+                components.put(String.valueOf(i), component[i].serializeNBT(provider));
+            }
+            tag.put("components", components);
+        }
+        return tag;
     }
 
-    public void load(CompoundTag tag)
+    @Override
+    public void deserializeNBT(HolderLookup.@NotNull Provider provider, CompoundTag tag)
     {
         Registry<PartType> registry = (Registry<PartType>) BuiltInRegistries.REGISTRY.get(AmbercraftRegistries.PART_TYPE.location());
         PartType type = registry.get(ResourceLocation.parse(tag.getString("type")));

@@ -1,13 +1,12 @@
-package welbervs.mc.ambercraft.core.events;
+package welbervs.mc.ambercraft.core.part;
 
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import welbervs.mc.ambercraft.api.part.PartDataComponent;
 import welbervs.mc.ambercraft.core.Ambercraft;
-import welbervs.mc.ambercraft.core.part.PartContainerBlockEntity;
 import welbervs.mc.ambercraft.core.registry.BlocksRegister;
-import welbervs.mc.ambercraft.core.registry.DataComponentRegister;
+import welbervs.mc.ambercraft.api.registry.DataComponentRegister;
 
 @EventBusSubscriber(modid = Ambercraft.MODID)
 public class PartEvents

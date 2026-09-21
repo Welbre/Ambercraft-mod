@@ -15,6 +15,12 @@ public class ComponentType<T extends Component>
         this.defaultInstance = defaultInstance;
     }
 
+    protected ComponentType(ResourceLocation id)
+    {
+        this.id = id;
+        this.defaultInstance = () -> null;
+    }
+
     public T getDefaultInstance()
     {
         return defaultInstance.get();

@@ -18,10 +18,10 @@ public record DeferredPartTypeRegister(DeferredRegister<PartType> register)
     /**
      * Register a new IPartType using your mod id.
      *
-     * @param name the name of the IPartType
+     * @param name the name of the PartType
      * @param partType A function that receives the ResourceLocation of the PartType and returns the PartType
      * @param <T>  The class that will be registered
-     * @return The DeferredHolder of the IPartType
+     * @return The DeferredHolder of the PartType
      */
     public <T extends PartType> DeferredHolder<PartType, T> register(String name, Function<ResourceLocation, T> partType)
     {

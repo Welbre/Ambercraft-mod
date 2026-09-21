@@ -10,6 +10,7 @@ import net.minecraft.resources.RegistryFixedCodec;
 import org.jetbrains.annotations.NotNull;
 import welbervs.mc.ambercraft.api.registry.AmbercraftRegistries;
 
+/// Used in itens to flag that an item can be used as a part in the world.
 public record PartDataComponent(Holder<PartType> partType)
 {
     public @NotNull Part getDefaultPartInstance()

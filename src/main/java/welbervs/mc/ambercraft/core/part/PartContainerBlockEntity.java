@@ -52,15 +52,12 @@ public class PartContainerBlockEntity extends BlockEntity implements Iterable<Pa
         CompoundTag pInstances = new CompoundTag();
         for (int i = 0; i < parts.size(); i++)
         {
-            Part instance = parts.get(i);
-            CompoundTag _tag = new CompoundTag();
             try {
-                instance.saveAdditional(_tag);
+                pInstances.put(String.valueOf(i), parts.get(i).serializeNBT(registries));
             } catch (RuntimeException e)
             {
                 Ambercraft.LOGGER.error("Serialization fail", e);
             }
-            pInstances.put(String.valueOf(i), _tag);
         }
         tag.put("partInstance", pInstances);
     }

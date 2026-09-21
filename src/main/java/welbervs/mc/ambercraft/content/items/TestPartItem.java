@@ -2,7 +2,7 @@ package welbervs.mc.ambercraft.content.items;
 
 import net.minecraft.world.item.Item;
 import welbervs.mc.ambercraft.api.part.PartDataComponent;
-import welbervs.mc.ambercraft.core.registry.DataComponentRegister;
+import welbervs.mc.ambercraft.api.registry.DataComponentRegister;
 import welbervs.mc.ambercraft.core.registry.PartTypesRegister;
 
 public class TestPartItem extends Item

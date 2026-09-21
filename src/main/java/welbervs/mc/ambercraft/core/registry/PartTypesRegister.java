@@ -6,6 +6,7 @@ import welbervs.mc.ambercraft.api.registry.DeferredPartTypeRegister;
 import welbervs.mc.ambercraft.content.part_type.TestPartType;
 import welbervs.mc.ambercraft.core.Ambercraft;
 
+/// Register all PartType used in the AmberCraft mod.
 public class PartTypesRegister
 {
     public static final DeferredPartTypeRegister REGISTER = new DeferredPartTypeRegister(Ambercraft.MODID);
