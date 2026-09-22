@@ -1,5 +1,6 @@
 package welbervs.mc.ambercraft.core.part;
 
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -18,25 +19,27 @@ public class PartEvents
         if (component == null)
             return;
 
-        //face can't be null because the LeftClickBlock always returns a face.
-        var relative = event.getPos().relative(event.getFace());
-        var state = event.getLevel().getBlockState(relative);
-        boolean isAir = state.isAir();
-
-        //check if the block is already occupied
-        if (!isAir && !state.is(BlocksRegister.PART_CONTAINER_BLOCK.get()))
-            return;
-
         var level = event.getLevel();
 
-        if (isAir)
+        BlockEntity be = level.getBlockEntity(event.getPos());
+        //check if the block is a PartContainer, if it isn't, create it.'
+        if (!(be instanceof PartContainerBlockEntity))
         {
+
+            //face can't be null because the LeftClickBlock always returns a face.
+            var relative = event.getPos().relative(event.getFace());
+
+            //check if the block is already occupied
+            if (!level.getBlockState(relative).isAir())//return if it isn't air, so can't be occupied
+                return;
+
             level.setBlock(relative, BlocksRegister.PART_CONTAINER_BLOCK.get().defaultBlockState(), 3);
+            be = level.getBlockEntity(relative);
         }
 
         //can't be null because the block is created above or already exists.
-        PartContainerBlockEntity be = (PartContainerBlockEntity) level.getBlockEntity(relative);
-        if (! be.addPart(component.getDefaultPartInstance()))//try to add the part
+        PartContainerBlockEntity pCon = (PartContainerBlockEntity) be;
+        if (! pCon.addPart(component.getDefaultPartInstance()))//try to add the part
             return;
 
         event.getItemStack().consume(1, event.getEntity());

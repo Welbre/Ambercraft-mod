@@ -17,10 +17,10 @@ public abstract class PartType
     private final List<Holder<ComponentType<?>>> componentsType;
 
     /**
-     * Creates a new PartType
+     * Creates a new PartType. <a color=#ffff33>Used only in special cases, prefer</a> {@link #PartType(ResourceLocation, Holder[])}
      *
      * @param id              The resourceLocation where the PartType will be registered.
-     * @param defaultInstance A supplier that returns the default Part.
+     * @param defaultInstance A supplier that returns the default Part. Useful to create a Part with extra data.
      * @param componentsType  The list of components that will be used in the Part.
      */
     @SafeVarargs
@@ -52,7 +52,10 @@ public abstract class PartType
         this.componentsType = List.of();
     }
 
-    public abstract VoxelShape getShape(Part part);
+    /// Called after the Part constructor initializes the all Part essencial stuff.
+    public abstract void handlePartInitialization(Part part);
+
+    public abstract @NotNull VoxelShape getShape(Part part);
 
     public List<ComponentType<?>> getComponentsType()
     {

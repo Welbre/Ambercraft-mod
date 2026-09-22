@@ -1,8 +1,6 @@
 package welbervs.mc.ambercraft.api.part;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.util.INBTSerializable;
@@ -11,11 +9,12 @@ import welbervs.mc.ambercraft.api.component.Component;
 import welbervs.mc.ambercraft.api.component.ComponentType;
 import welbervs.mc.ambercraft.api.registry.AmbercraftRegistries;
 
+import java.util.Arrays;
 import java.util.List;
 
 public final class Part implements INBTSerializable<CompoundTag>
 {
-    private Component[] component;
+    private Component[] components;
     private PartType partType;
 
     public Part()
@@ -25,16 +24,27 @@ public final class Part implements INBTSerializable<CompoundTag>
     public Part(PartType partType)
     {
         this.partType = partType;
-        this.component = new Component[partType.getComponentsType().size()];
+        this.components = new Component[partType.getComponentsType().size()];
 
-        initializeComponents(partType);
-    }
-
-    private void initializeComponents(PartType partType)
-    {
         List<ComponentType<?>> componentsType = partType.getComponentsType();
         for (int i = 0; i < componentsType.size(); i++)
-            this.component[i] = componentsType.get(i).getDefaultInstance();
+            this.components[i] = componentsType.get(i).getDefaultInstance();
+
+        partType.handlePartInitialization(this);
+    }
+
+    /// Return the component at the index or null if it can't reach the index.
+    public Component getComponentByID(int index)
+    {
+        if (index >= components.length)
+            return null;
+        return components[index];
+    }
+
+    /// Return a list of all components of the type passed in the parameter.
+    public <T extends Component> List<T> getComponentByType(ComponentType<T> type)
+    {
+        return Arrays.stream(components).filter(c -> c.getType() == type).map(c -> (T) c).toList();
     }
 
     public PartType getPartType()
@@ -49,10 +59,10 @@ public final class Part implements INBTSerializable<CompoundTag>
         tag.putString("type", partType.id.toString());
         {
             CompoundTag components = new CompoundTag();
-            for (int i = 0; i < component.length; i++)
-            {
-                components.put(String.valueOf(i), component[i].serializeNBT(provider));
-            }
+            for (int i = 0; i < this.components.length; i++)
+                components.put(String.valueOf(i), Component.SERIALIZE(this.components[i], provider));
+
+            components.putInt("size", this.components.length);
             tag.put("components", components);
         }
         return tag;
@@ -61,13 +71,16 @@ public final class Part implements INBTSerializable<CompoundTag>
     @Override
     public void deserializeNBT(HolderLookup.@NotNull Provider provider, CompoundTag tag)
     {
-        Registry<PartType> registry = (Registry<PartType>) BuiltInRegistries.REGISTRY.get(AmbercraftRegistries.PART_TYPE.location());
-        PartType type = registry.get(ResourceLocation.parse(tag.getString("type")));
+        PartType type = AmbercraftRegistries.PART_TYPE_REGISTRY.get(ResourceLocation.parse(tag.getString("type")));
+
         if (type == null)
             throw new IllegalStateException("Unknown part type: " + tag.getString("type"));
 
         this.partType = type;
-        this.component = new Component[type.getComponentsType().size()];
-        initializeComponents(type);
+
+        var components_tag = tag.getCompound("components");
+        this.components = new Component[components_tag.getInt("size")];//used the size in the data to avoid crash because PartType can change.
+        for (int i = 0; i < components.length; i++)
+            components[i] = Component.DESERIALIZE(provider, components_tag.getCompound(String.valueOf(i)));
     }
 }

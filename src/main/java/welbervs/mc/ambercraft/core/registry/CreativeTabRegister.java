@@ -19,7 +19,8 @@ public class CreativeTabRegister
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(Items.DIAMOND::getDefaultInstance)
             .displayItems((parameters, output) -> {
-                output.accept(ItemsRegister.TEST_PART_ITEM.get().getDefaultInstance());
+                output.accept(ItemsRegister.RESISTOR.get().getDefaultInstance());
+                output.accept(ItemsRegister.VOLTAGE_SOURCE.get().getDefaultInstance());
                 //output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
             }).build());
 }

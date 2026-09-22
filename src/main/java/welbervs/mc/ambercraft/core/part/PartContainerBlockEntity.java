@@ -10,8 +10,7 @@ import welbervs.mc.ambercraft.api.part.Part;
 import welbervs.mc.ambercraft.core.Ambercraft;
 import welbervs.mc.ambercraft.core.registry.BlockEntityRegister;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 public class PartContainerBlockEntity extends BlockEntity implements Iterable<Part>
 {
@@ -49,16 +48,38 @@ public class PartContainerBlockEntity extends BlockEntity implements Iterable<Pa
     protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider registries)
     {
         super.saveAdditional(tag, registries);
-        CompoundTag pInstances = new CompoundTag();
-        for (int i = 0; i < parts.size(); i++)
+        //Save parts
         {
-            try {
-                pInstances.put(String.valueOf(i), parts.get(i).serializeNBT(registries));
-            } catch (RuntimeException e)
+            CompoundTag pInstances = new CompoundTag();
+            for (int i = 0; i < parts.size(); i++)
             {
-                Ambercraft.LOGGER.error("Serialization fail", e);
+                try
+                {
+                    pInstances.put(String.valueOf(i), parts.get(i).serializeNBT(registries));
+                } catch (RuntimeException e)
+                {
+                    Ambercraft.LOGGER.error("Serialization fail", e);
+                }
             }
+            pInstances.putInt("size", parts.size());
+            tag.put("partArray", pInstances);
         }
-        tag.put("partInstance", pInstances);
+    }
+
+    @Override
+    protected void loadAdditional(CompoundTag tag, HolderLookup.@NotNull Provider registries)
+    {
+        CompoundTag partArray = tag.getCompound("partArray");
+        //load parts
+        {
+            Part[] temp = new Part[partArray.getInt("size")];
+            for (int i = 0; i < temp.length; i++)
+            {
+                Part part = new Part();
+                part.deserializeNBT(registries, partArray.getCompound( String.valueOf(i) ));
+                temp[i] = part;
+            }
+            Arrays.stream(temp).forEach(this::addPart);
+        }
     }
 }
