@@ -3,13 +3,16 @@ package welbervs.mc.ambercraft.api.part;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 import org.jetbrains.annotations.NotNull;
 import welbervs.mc.ambercraft.api.component.Component;
+import welbervs.mc.ambercraft.api.component.ComponentSourceCapability;
 import welbervs.mc.ambercraft.api.component.ComponentType;
 import welbervs.mc.ambercraft.api.registry.AmbercraftRegistries;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public final class Part implements INBTSerializable<CompoundTag>
@@ -45,6 +48,18 @@ public final class Part implements INBTSerializable<CompoundTag>
     public <T extends Component> List<T> getComponentByType(ComponentType<T> type)
     {
         return Arrays.stream(components).filter(c -> c.getType() == type).map(c -> (T) c).toList();
+    }
+
+    /// Return a list of all components in the part.
+    public List<Component> getAllComponents()
+    {
+        return Arrays.asList(components);
+    }
+
+    /// Called when someone is try to get components from an BlockEntity.<br> The method's parathmeres is used to decide what should be returned.
+    public Collection<? extends Component> getComponentByContext(BlockEntity be, ComponentSourceCapability.Context context)
+    {
+        return partType.handleGetComponentByContext(this, be, context);
     }
 
     public PartType getPartType()

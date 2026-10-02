@@ -1,16 +1,21 @@
 package welbervs.mc.ambercraft.content.part_type;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import welbervs.mc.ambercraft.api.component.Component;
+import welbervs.mc.ambercraft.api.component.ComponentSourceCapability;
 import welbervs.mc.ambercraft.api.part.Part;
 import welbervs.mc.ambercraft.api.part.PartType;
 import welbervs.mc.ambercraft.content.components.ElectricalResistenceComponent;
 import welbervs.mc.ambercraft.core.registry.ComponentTypeRegister;
 
+import java.util.Collection;
+import java.util.List;
+
 public class ResistorPartType extends PartType
 {
-    //todo fazer outra parte para teste, e renomear para ficar mais palpavel
     public ResistorPartType(ResourceLocation id)
     {
         super(id, ComponentTypeRegister.HEAT_DISSIPATOR, ComponentTypeRegister.ELECTRICAL_RESISTENCE);
@@ -24,6 +29,12 @@ public class ResistorPartType extends PartType
         {
             resis.setResistance(50);
         }
+    }
+
+    @Override
+    public Collection<? extends Component> handleGetComponentByContext(Part part, BlockEntity be, ComponentSourceCapability.Context context)
+    {
+        return part.getAllComponents();
     }
 
     @Override

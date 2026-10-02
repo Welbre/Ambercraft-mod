@@ -17,7 +17,7 @@ public class Click
         if (event.getPos() != null)
         {
             String url = "Sem capacidade";
-            ComponentSourceCapability capability = event.getLevel().getCapability(CapabilitiesRegister.COMPONENT_SOURCE_CAPABILITY, event.getPos(), event.getFace());
+            ComponentSourceCapability capability = event.getLevel().getCapability(CapabilitiesRegister.COMPONENT_SOURCE_CAPABILITY, event.getPos(), ComponentSourceCapability.Context.EMPTY );
             if (capability != null)
                 url = "Com capacidade";
             event.getEntity().sendSystemMessage(

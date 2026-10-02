@@ -6,6 +6,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+import welbervs.mc.ambercraft.api.component.Component;
+import welbervs.mc.ambercraft.api.component.ComponentSourceCapability;
 import welbervs.mc.ambercraft.api.part.Part;
 import welbervs.mc.ambercraft.core.Ambercraft;
 import welbervs.mc.ambercraft.core.registry.BlockEntityRegister;
@@ -81,5 +83,14 @@ public class PartContainerBlockEntity extends BlockEntity implements Iterable<Pa
             }
             Arrays.stream(temp).forEach(this::addPart);
         }
+    }
+
+    public ComponentSourceCapability formulateCapability(ComponentSourceCapability.Context context)
+    {
+        var lst = new ArrayList<Component>();
+        for (Part part : parts)
+            lst.addAll(part.getComponentByContext(this, context));
+
+        return new ComponentSourceCapability(lst);
     }
 }

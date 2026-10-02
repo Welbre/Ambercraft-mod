@@ -2,11 +2,15 @@ package welbervs.mc.ambercraft.api.part;
 
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import welbervs.mc.ambercraft.api.component.Component;
+import welbervs.mc.ambercraft.api.component.ComponentSourceCapability;
 import welbervs.mc.ambercraft.api.component.ComponentType;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -54,6 +58,9 @@ public abstract class PartType
 
     /// Called after the Part constructor initializes the all Part essencial stuff.
     public abstract void handlePartInitialization(Part part);
+
+    /// Called when someone is try to get components from an BlockEntity.<br> The method's parathmeres is used to decide what should be returned.
+    public abstract Collection<? extends Component> handleGetComponentByContext(Part part, BlockEntity be, ComponentSourceCapability.Context context);
 
     public abstract @NotNull VoxelShape getShape(Part part);
 
