@@ -1,7 +1,8 @@
 package welbervs.mc.ambercraft.content.components;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import org.jetbrains.annotations.NotNull;
 import welbervs.mc.ambercraft.api.component.Component;
 import welbervs.mc.ambercraft.api.component.ComponentType;
@@ -9,6 +10,10 @@ import welbervs.mc.ambercraft.core.registry.ComponentTypeRegister;
 
 public class ElectricalResistenceComponent implements Component
 {
+    public static final MapCodec<ElectricalResistenceComponent> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            Codec.DOUBLE.optionalFieldOf("r", 0.0).forGetter(ElectricalResistenceComponent::getResistance)
+    ).apply(instance, ElectricalResistenceComponent::new));
+
     private double resistance;
 
     public ElectricalResistenceComponent()
@@ -24,20 +29,6 @@ public class ElectricalResistenceComponent implements Component
     public @NotNull ComponentType<?> getType()
     {
         return ComponentTypeRegister.ELECTRICAL_RESISTENCE.get();
-    }
-
-    @Override
-    public CompoundTag serializeNBT(HolderLookup.@NotNull Provider provider)
-    {
-        var x = new CompoundTag();
-        x.putDouble("r", resistance);
-        return x;
-    }
-
-    @Override
-    public void deserializeNBT(HolderLookup.@NotNull Provider provider, @NotNull CompoundTag nbt)
-    {
-        resistance = nbt.getDouble("r");
     }
 
     public double getResistance()

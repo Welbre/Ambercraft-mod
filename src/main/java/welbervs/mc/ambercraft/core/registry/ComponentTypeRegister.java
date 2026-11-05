@@ -14,6 +14,6 @@ public class ComponentTypeRegister
     public static final DeferredComponentTypeRegister REGISTER = new DeferredComponentTypeRegister(Ambercraft.MODID);
 
     public static final DeferredHolder<ComponentType<?>, ElectricalResistenceComponentType> ELECTRICAL_RESISTENCE = REGISTER.register("electrical_resistence", ElectricalResistenceComponentType::new);
-    public static final DeferredHolder<ComponentType<?>, ComponentType<ElectricalSourceComponent>> ELECTRICAL_SOURCE = REGISTER.simpleComponent("electrical_source", ElectricalSourceComponent::new);
+    public static final DeferredHolder<ComponentType<?>, ComponentType<ElectricalSourceComponent>> ELECTRICAL_SOURCE = REGISTER.simpleComponent("electrical_source", ElectricalSourceComponent::new, ElectricalSourceComponent.CODEC);
     public static final DeferredHolder<ComponentType<?>, HeatDissipatorComponentType> HEAT_DISSIPATOR = REGISTER.register("heat_dissipator", HeatDissipatorComponentType::new);
 }

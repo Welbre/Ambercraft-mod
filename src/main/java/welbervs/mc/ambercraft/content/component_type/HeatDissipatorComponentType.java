@@ -8,6 +8,6 @@ public class HeatDissipatorComponentType extends ComponentType<HeatDissipatorCom
 {
     public HeatDissipatorComponentType(ResourceLocation id)
     {
-        super(id, HeatDissipatorComponent::new);
+        super(id, HeatDissipatorComponent::new, HeatDissipatorComponent.CODEC);
     }
 }

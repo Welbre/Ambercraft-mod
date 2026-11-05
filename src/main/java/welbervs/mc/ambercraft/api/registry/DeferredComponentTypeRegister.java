@@ -1,5 +1,6 @@
 package welbervs.mc.ambercraft.api.registry;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -35,13 +36,14 @@ public record DeferredComponentTypeRegister(DeferredRegister<ComponentType<?>> r
      * Register a new componentType using your mod id.
      *
      * @param name              the name of the ComponentType
-     * @param componentSupplier A simple supplier that returns the ComponentType desired to be registered, we recommend using the ::new operator
+     * @param componentSupplier A simple supplier that returns a default component, we recommend using the ::new operator
+     * @param codec             The codec of the component fields (without the "type" field)
      * @param <T>               The class that will be registered
      * @return                  The DeferredHolder of the ComponentType
      */
-    public <T extends Component> DeferredHolder<ComponentType<?>, ComponentType<T>> simpleComponent(String name, Supplier<T> componentSupplier)
+    public <T extends Component> DeferredHolder<ComponentType<?>, ComponentType<T>> simpleComponent(String name, Supplier<T> componentSupplier, MapCodec<T> codec)
     {
-        return register(name, (id) -> new ComponentType<T>(id, componentSupplier));
+        return register(name, (id) -> new ComponentType<>(id, componentSupplier, codec));
     }
 
     public void register(IEventBus modEventBus)
