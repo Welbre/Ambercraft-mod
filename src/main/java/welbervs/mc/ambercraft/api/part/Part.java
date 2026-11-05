@@ -1,5 +1,6 @@
 package welbervs.mc.ambercraft.api.part;
 
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -17,6 +18,8 @@ import java.util.List;
 
 public final class Part implements INBTSerializable<CompoundTag>
 {
+    //Todo fazer com que a forma como o jogador coloca o item no mundo altere a direção do part, e fazer uns testes basicos para que o resistor seja direcional, e dessa forma exportar componente apenas para os lados certos
+    private Direction direction;
     private Component[] components;
     private PartType partType;
 
@@ -80,6 +83,7 @@ public final class Part implements INBTSerializable<CompoundTag>
             components.putInt("size", this.components.length);
             tag.put("components", components);
         }
+        tag.putByte("dir", direction == null ? -1 : (byte) direction.ordinal());
         return tag;
     }
 
@@ -97,5 +101,20 @@ public final class Part implements INBTSerializable<CompoundTag>
         this.components = new Component[components_tag.getInt("size")];//used the size in the data to avoid crash because PartType can change.
         for (int i = 0; i < components.length; i++)
             components[i] = Component.DESERIALIZE(provider, components_tag.getCompound(String.valueOf(i)));
+
+        {
+            var dir = tag.getInt("dir");
+            direction = dir == -1 ? null : Direction.values()[dir];
+        }
+    }
+
+    public Direction getDirection()
+    {
+        return direction;
+    }
+
+    public void setDirection(Direction direction)
+    {
+        this.direction = direction;
     }
 }
