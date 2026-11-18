@@ -2,7 +2,9 @@
   "required": true,
   "package": "welbervs.mc.ambercraft.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "mixins": [
+    "ServerLevelMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   },

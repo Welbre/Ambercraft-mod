@@ -9,6 +9,7 @@ import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import org.jetbrains.annotations.NotNull;
 import welbervs.mc.ambercraft.api.component.ComponentSourceCapability;
+import welbervs.mc.ambercraft.content.block_entities.NetworkTestBlockEntity;
 import welbervs.mc.ambercraft.core.Ambercraft;
 import welbervs.mc.ambercraft.core.part.PartContainerBlockEntity;
 import welbervs.mc.ambercraft.core.registry.BlockEntityRegister;
@@ -30,6 +31,11 @@ public class CapabilitiesRegister
                 COMPONENT_SOURCE_CAPABILITY,
                 BlockEntityRegister.PART_CONTAINER_BLOCK_ENTITY.get(),
                 PartContainerBlockEntity::formulateCapability
+        );
+        event.registerBlockEntity(
+                COMPONENT_SOURCE_CAPABILITY,
+                BlockEntityRegister.NETWORK_TEST_BLOCK_ENTITY.get(),
+                NetworkTestBlockEntity::getComponentSource
         );
         event.registerBlock(
                 COMPONENT_SOURCE_CAPABILITY,

@@ -1,5 +1,6 @@
 package welbervs.mc.ambercraft.core.registry;
 
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -16,6 +17,7 @@ public class ItemsRegister
 {
     public static final DeferredRegister.Items REGISTER = DeferredRegister.createItems(MODID);
 
+    public static final DeferredHolder<Item, BlockItem> NETWORK_TEST_BLOCK = REGISTER.registerSimpleBlockItem("network_test_block", BlocksRegister.NETWORK_TEST_BLOCK);
     public static final DeferredHolder<Item, ResistorPartItem> RESISTOR = REGISTER.registerItem("resistor", ResistorPartItem::new);
     public static final DeferredHolder<Item, Item> VOLTAGE_SOURCE = REGISTER.registerItem("voltage_source", new Function<Item.Properties, Item>()
     {

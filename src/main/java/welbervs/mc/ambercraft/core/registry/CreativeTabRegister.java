@@ -21,6 +21,7 @@ public class CreativeTabRegister
             .displayItems((parameters, output) -> {
                 output.accept(ItemsRegister.RESISTOR.get().getDefaultInstance());
                 output.accept(ItemsRegister.VOLTAGE_SOURCE.get().getDefaultInstance());
+                output.accept(ItemsRegister.NETWORK_TEST_BLOCK.get().getDefaultInstance());
                 //output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
             }).build());
 }
