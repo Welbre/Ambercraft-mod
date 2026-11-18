@@ -1,6 +1,0 @@
-{
-  "variants": {
-    "domain=electrical": { "model": "ambercraft:block/network_test_block_electrical" },
-    "domain=thermal": { "model": "ambercraft:block/network_test_block_thermal" }
-  }
-}

@@ -15,7 +15,6 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import welbervs.mc.ambercraft.api.registry.AmbercraftRegistries;
-import welbervs.mc.ambercraft.api.registry.DataAttachmentRegister;
 import welbervs.mc.ambercraft.api.registry.DataComponentRegister;
 import welbervs.mc.ambercraft.core.registry.ComponentTypeRegister;
 import welbervs.mc.ambercraft.core.registry.PartTypesRegister;
@@ -48,7 +47,6 @@ public class Ambercraft
         welbervs.mc.ambercraft.core.registry.CreativeTabRegister.REGISTER.register(modEventBus);
         welbervs.mc.ambercraft.core.registry.BlockEntityRegister.REGISTER.register(modEventBus);
         DataComponentRegister.REGISTER.register(modEventBus);
-        DataAttachmentRegister.ATTACHMENT_TYPES.register(modEventBus);
         PartTypesRegister.REGISTER.register(modEventBus);
         ComponentTypeRegister.REGISTER.register(modEventBus);
 

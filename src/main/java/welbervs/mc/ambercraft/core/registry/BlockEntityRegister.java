@@ -6,7 +6,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import welbervs.mc.ambercraft.content.block_entities.NetworkTestBlockEntity;
 import welbervs.mc.ambercraft.core.Ambercraft;
 import welbervs.mc.ambercraft.core.part.PartContainerBlockEntity;
 
@@ -20,9 +19,6 @@ public class BlockEntityRegister
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PartContainerBlockEntity>> PART_CONTAINER_BLOCK_ENTITY
             = register("part_container", PartContainerBlockEntity::new, BlocksRegister.PART_CONTAINER_BLOCK);
-
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<NetworkTestBlockEntity>> NETWORK_TEST_BLOCK_ENTITY
-            = register("network_test_block", NetworkTestBlockEntity::new, BlocksRegister.NETWORK_TEST_BLOCK);
 
 
 
